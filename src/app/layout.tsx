@@ -16,13 +16,13 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://apexsportswear.com"),
+  metadataBase: new URL("https://www.apexswear.co.uk"),
   title: {
     default: "Apex Sportswear — Football, NBA & F1 Kits",
     template: "%s | Apex Sportswear",
   },
   description:
-    "Premium football club kits, NBA jerseys and F1 gear. Wear your allegiance — join the free Apex Club for early access and members-only offers.",
+    "Premium football club kits, national-team shirts, NBA jerseys & F1 gear — shipped worldwide. Join the free Apex Club for early drops and live shirt giveaways.",
   keywords: [
     "football shirts",
     "football kits",
@@ -33,10 +33,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Apex Sportswear",
-    url: "https://apexsportswear.com",
+    title: "Apex Sportswear — Wear your allegiance",
+    description:
+      "Premium football, NBA & F1 kits, shipped worldwide. Join the free Apex Club for early drops and live shirt giveaways.",
+    url: "https://www.apexswear.co.uk",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Apex Sportswear — Wear your allegiance",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    title: "Apex Sportswear — Wear your allegiance",
+    description:
+      "Premium football, NBA & F1 kits, shipped worldwide. Join the free Apex Club.",
+    images: ["/og-image.png"],
   },
 };
 

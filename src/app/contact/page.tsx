@@ -20,10 +20,10 @@ export default function ContactPage() {
       <p className="mt-3 text-sm text-muted">
         Questions about an order, sizing or returns? Send us a message or email{" "}
         <a
-          href="mailto:support@apexsportswear.com"
+          href="mailto:support@apexswear.co.uk"
           className="text-accent underline-offset-4 hover:underline"
         >
-          support@apexsportswear.com
+          support@apexswear.co.uk
         </a>
         . We aim to reply within one business day.
       </p>

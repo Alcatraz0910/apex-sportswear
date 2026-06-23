@@ -3,7 +3,7 @@ import { getAllProducts, getProductsByCategories } from "@/lib/catalog";
 import { LEAGUES } from "@/lib/leagues";
 import { competitionsOf, clubsOf } from "@/lib/subcategories";
 
-const SITE = "https://apexsportswear.com";
+const SITE = "https://www.apexswear.co.uk";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();

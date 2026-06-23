@@ -1,6 +1,6 @@
 import type { ApexProduct } from "@/lib/types";
 
-const SITE = "https://apexsportswear.com";
+const SITE = "https://www.apexswear.co.uk";
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
