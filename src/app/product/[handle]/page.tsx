@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import {
   getAllHandles,
@@ -10,6 +9,7 @@ import {
 } from "@/lib/catalog";
 import { leagueForCategory } from "@/lib/leagues";
 import { BuyBox } from "@/components/BuyBox";
+import { ProductGallery } from "@/components/ProductGallery";
 import { ProductGrid } from "@/components/ProductGrid";
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { accentVar } from "@/lib/style";
@@ -49,7 +49,6 @@ export default async function ProductPage({
 
   const league = leagueForCategory(product.category);
   const related = await getRelated(product);
-  const img = product.images[0];
 
   return (
     <div style={league ? accentVar(league.accent) : undefined}>
@@ -80,21 +79,11 @@ export default async function ProductPage({
         </nav>
 
         <div className="grid gap-10 lg:grid-cols-2">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-border bg-black">
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
-            {product.edition && (
-              <span className="absolute left-4 top-4 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-black">
-                {product.edition}
-              </span>
-            )}
-          </div>
+          <ProductGallery
+            images={product.images}
+            title={product.display_title}
+            edition={product.edition}
+          />
 
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
