@@ -113,6 +113,15 @@ export async function cartLinesAdd(cartId: string, lines: LineInput[]): Promise<
   return unwrap(data, "cartLinesAdd");
 }
 
+export async function getCart(cartId: string): Promise<Cart | null> {
+  const data = await storefrontFetch<{ cart: Cart | null }>(
+    `${CART_FRAGMENT}
+     query GetCart($id: ID!) { cart(id: $id) { ...CartFields } }`,
+    { id: cartId },
+  );
+  return data.cart;
+}
+
 export async function cartLinesRemove(
   cartId: string,
   lineId: string,

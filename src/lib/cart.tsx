@@ -11,6 +11,7 @@ import {
   cartCreate,
   cartLinesAdd,
   cartLinesRemove,
+  getCart,
   type Cart,
   type LineInput,
 } from "./storefront";
@@ -44,7 +45,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) setCartId(stored);
+    if (!stored) return;
+    setCartId(stored);
+    // Load the existing cart's CONTENTS (not just its id) so opening the bag shows
+    // current items immediately — without this, the bag looks empty until you add.
+    getCart(stored)
+      .then((c) => {
+        if (c && c.id) setCart(c);
+        else {
+          localStorage.removeItem(STORAGE_KEY); // expired/completed cart — reset
+          setCartId(null);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
