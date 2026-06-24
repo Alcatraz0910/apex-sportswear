@@ -5,8 +5,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "placehold.co" },
       { protocol: "https", hostname: "cdn.shopify.com" },
-      // Supplier CDN — bundled product images (interim; re-host at go-live, ADR-004).
-      { protocol: "https", hostname: "img.staticdj.com" },
+      // Supplier CDNs — bundled product images (interim; re-host at go-live, ADR-004).
+      { protocol: "https", hostname: "img.staticdj.com" }, // Shoplazza (football)
+      { protocol: "https", hostname: "cdn.staticyy.com" }, // ymcart/kitddm (NBA + F1)
+      { protocol: "https", hostname: "us03-imgcdn.ymcart.com" }, // ymcart secondary
     ],
   },
 };
