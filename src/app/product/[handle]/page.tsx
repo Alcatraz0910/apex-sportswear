@@ -74,8 +74,12 @@ export default async function ProductPage({
               </Link>
             </>
           )}
-          {" / "}
-          <span className="text-foreground">{product.team}</span>
+          {product.team && (
+            <>
+              {" / "}
+              <span className="text-foreground">{product.team}</span>
+            </>
+          )}
         </nav>
 
         <div className="grid gap-10 lg:grid-cols-2">
@@ -87,8 +91,7 @@ export default async function ProductPage({
 
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
-              {product.team}
-              {product.season ? ` · ${product.season}` : ""}
+              {[product.team, product.season].filter(Boolean).join(" · ")}
             </p>
             <h1 className="mt-3 font-display text-3xl font-extrabold uppercase leading-tight sm:text-4xl">
               {product.display_title}

@@ -188,3 +188,11 @@ export async function getRelated(product: ApexProduct, limit = 4): Promise<ApexP
 export function formatPrice(amount: number, currency = "GBP"): string {
   return new Intl.NumberFormat("en-GB", { style: "currency", currency }).format(amount);
 }
+
+// Request an appropriately-sized image from Shopify's CDN (it resizes on the fly via
+// ?width=). Keeps payloads small + crisp without Vercel's optimizer. No-op for non-Shopify
+// URLs (supplier-CDN fallbacks), so it's always safe to call.
+export function sizedImg(src: string, width: number): string {
+  if (!src || !src.includes("cdn.shopify.com")) return src;
+  return src.includes("?") ? `${src}&width=${width}` : `${src}?width=${width}`;
+}

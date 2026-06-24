@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { ProductImage } from "@/lib/types";
+import { sizedImg } from "@/lib/catalog";
 
 export function ProductGallery({
   images,
@@ -20,12 +21,12 @@ export function ProductGallery({
     <div>
       <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-border bg-black">
         <Image
-          src={main.src}
+          src={sizedImg(main.src, 1000)}
           alt={main.alt || title}
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover"
+          className="object-contain"
         />
         {edition && (
           <span className="absolute left-4 top-4 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-black">
@@ -49,7 +50,7 @@ export function ProductGallery({
               }`}
             >
               <Image
-                src={im.src}
+                src={sizedImg(im.src, 200)}
                 alt=""
                 fill
                 sizes="64px"
