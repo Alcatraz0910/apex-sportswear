@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    // Serve images straight from the supplier CDNs (already-optimized JPEGs) instead of
+    // Vercel's image optimizer — the catalogue's ~3.7k products x several images blow past
+    // Hobby's image-optimization cap. This offloads all image bytes to the suppliers'
+    // CDNs (zero Vercel optimization usage + near-zero Vercel image bandwidth).
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "placehold.co" },
       { protocol: "https", hostname: "cdn.shopify.com" },
