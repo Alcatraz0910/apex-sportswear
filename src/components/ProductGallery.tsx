@@ -18,7 +18,7 @@ export function ProductGallery({
   const main = images[active] ?? images[0];
 
   return (
-    <div>
+    <div className="min-w-0">
       <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-border bg-black">
         <Image
           src={sizedImg(main.src, 1000)}

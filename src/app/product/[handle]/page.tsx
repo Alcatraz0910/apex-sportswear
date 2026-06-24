@@ -89,7 +89,7 @@ export default async function ProductPage({
             edition={product.edition}
           />
 
-          <div>
+          <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
               {[product.team, product.season].filter(Boolean).join(" · ")}
             </p>
