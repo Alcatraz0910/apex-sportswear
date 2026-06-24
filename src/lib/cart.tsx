@@ -12,6 +12,7 @@ import {
   cartLinesAdd,
   cartLinesRemove,
   type Cart,
+  type LineInput,
 } from "./storefront";
 
 interface CartContextValue {
@@ -19,7 +20,7 @@ interface CartContextValue {
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
-  addToCart: (variantId: string, quantity?: number) => Promise<void>;
+  addToCart: (lines: LineInput[]) => Promise<void>;
   removeFromCart: (lineId: string) => Promise<void>;
 }
 
@@ -31,6 +32,8 @@ const CartContext = createContext<CartContextValue>({
   addToCart: async () => {},
   removeFromCart: async () => {},
 });
+
+export type { LineInput };
 
 const STORAGE_KEY = "apex-cart-id";
 
@@ -49,11 +52,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [cartId]);
 
   const addToCart = useCallback(
-    async (variantId: string, quantity = 1) => {
+    async (lines: LineInput[]) => {
       try {
         const updated = cartId
-          ? await cartLinesAdd(cartId, variantId, quantity)
-          : await cartCreate(variantId, quantity);
+          ? await cartLinesAdd(cartId, lines)
+          : await cartCreate(lines);
         if (!cartId) setCartId(updated.id);
         setCart(updated);
         setIsOpen(true);

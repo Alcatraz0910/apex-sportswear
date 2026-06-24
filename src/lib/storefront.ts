@@ -30,9 +30,16 @@ async function storefrontFetch<T>(
   return json.data as T;
 }
 
+export interface LineInput {
+  merchandiseId: string;
+  quantity: number;
+  attributes?: { key: string; value: string }[];
+}
+
 export interface CartLine {
   id: string;
   quantity: number;
+  attributes: { key: string; value: string }[];
   merchandise: {
     id: string;
     title: string;
@@ -57,6 +64,7 @@ const CART_FRAGMENT = `
     lines(first: 100) {
       nodes {
         id quantity
+        attributes { key value }
         merchandise {
           ... on ProductVariant {
             id title
@@ -83,28 +91,24 @@ function unwrap<K extends string>(payload: CartPayload<K>, key: K): Cart {
   return p.cart;
 }
 
-export async function cartCreate(variantId: string, quantity = 1): Promise<Cart> {
+export async function cartCreate(lines: LineInput[]): Promise<Cart> {
   const data = await storefrontFetch<CartPayload<"cartCreate">>(
     `${CART_FRAGMENT}
      mutation CartCreate($input: CartInput!) {
        cartCreate(input: $input) { cart { ...CartFields } userErrors { field message } }
      }`,
-    { input: { lines: [{ merchandiseId: variantId, quantity }] } },
+    { input: { lines } },
   );
   return unwrap(data, "cartCreate");
 }
 
-export async function cartLinesAdd(
-  cartId: string,
-  variantId: string,
-  quantity = 1,
-): Promise<Cart> {
+export async function cartLinesAdd(cartId: string, lines: LineInput[]): Promise<Cart> {
   const data = await storefrontFetch<CartPayload<"cartLinesAdd">>(
     `${CART_FRAGMENT}
      mutation CartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
        cartLinesAdd(cartId: $cartId, lines: $lines) { cart { ...CartFields } userErrors { field message } }
      }`,
-    { cartId, lines: [{ merchandiseId: variantId, quantity }] },
+    { cartId, lines },
   );
   return unwrap(data, "cartLinesAdd");
 }

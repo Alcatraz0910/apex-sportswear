@@ -105,6 +105,13 @@ export function CartDrawer() {
                             Size: {size}
                           </p>
                         )}
+                        {line.attributes
+                          ?.filter((a) => a.value && a.value !== "—")
+                          .map((a) => (
+                            <p key={a.key} className="mt-0.5 text-xs text-accent">
+                              {a.key}: {a.value}
+                            </p>
+                          ))}
                       </div>
                       <div className="flex items-center justify-between">
                         <p className="text-sm font-semibold">

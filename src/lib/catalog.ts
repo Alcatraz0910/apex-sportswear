@@ -137,7 +137,14 @@ async function loadCatalog(): Promise<ApexProduct[]> {
   try {
     const nodes = await fetchAllShopifyProducts();
     if (!nodes.length) return BUNDLE;
-    return nodes.map((n) => mapShopify(n, BUNDLE_BY_HANDLE.get(n.handle)));
+    // Hide non-product add-ons (e.g. the £4.99 personalisation line item) from the catalogue.
+    const real = nodes.filter(
+      (n) =>
+        n.handle !== "shirt-personalisation" &&
+        n.productType !== "addon" &&
+        !(n.tags ?? []).includes("_addon"),
+    );
+    return real.map((n) => mapShopify(n, BUNDLE_BY_HANDLE.get(n.handle)));
   } catch (err) {
     console.error("[catalog] Shopify fetch failed; falling back to bundled data:", err);
     return BUNDLE;
