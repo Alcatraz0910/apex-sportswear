@@ -12,6 +12,7 @@ import { BuyBox } from "@/components/BuyBox";
 import { ProductGallery } from "@/components/ProductGallery";
 import { ProductGrid } from "@/components/ProductGrid";
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import ProductViewTracker from "@/components/analytics/ProductViewTracker";
 import { accentVar } from "@/lib/style";
 
 export async function generateStaticParams() {
@@ -53,6 +54,13 @@ export default async function ProductPage({
   return (
     <div style={league ? accentVar(league.accent) : undefined}>
       <ProductJsonLd product={product} />
+      <ProductViewTracker
+        id={product.handle}
+        name={product.display_title}
+        price={product.price}
+        currency={product.currency}
+        category={product.category}
+      />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: "/" },

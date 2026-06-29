@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { ApexProduct } from "@/lib/types";
 import { formatPrice } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
+import { trackAddToCart } from "@/lib/analytics/track";
 import { SizeGuide } from "./SizeGuide";
 import playersData from "@/data/players.json";
 
@@ -65,6 +66,19 @@ export function BuyBox({ product }: { product: ApexProduct }) {
         lines.push({ merchandiseId: PERSONALISATION_VARIANT_ID, quantity: 1, attributes: [] });
       }
       await addToCart(lines);
+      trackAddToCart({
+        items: [
+          {
+            id: selectedVariant.id,
+            name: product.display_title,
+            price: product.price,
+            quantity: 1,
+            category: product.category,
+          },
+        ],
+        value: product.price,
+        currency: product.currency,
+      });
     } finally {
       setAdding(false);
     }

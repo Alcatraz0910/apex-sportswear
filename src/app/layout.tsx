@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { CartProvider } from "@/lib/cart";
 import { CartDrawer } from "@/components/CartDrawer";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
+import Analytics from "@/components/analytics/Analytics";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -73,6 +74,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </CartProvider>
+        <Analytics />
       </body>
     </html>
   );
